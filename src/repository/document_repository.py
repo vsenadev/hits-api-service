@@ -11,4 +11,4 @@ class DocumentRepository:
 
     async def list_documents(self, enterprise_id: str):
         # Lista os documentos associados a uma empresa
-        return await execute_query('document', 'find', {"enterprise_id": ObjectId(enterprise_id)})
+        return await execute_query('document', 'find', {"enterprise_id": ObjectId(enterprise_id)}, {'file_content': 0, 'status': 0})

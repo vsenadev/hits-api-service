@@ -7,6 +7,7 @@ from .controller.enterprise_controller import router as enterprise_router
 from .controller.login_controller import router as login_router
 from .controller.document_controller import router as document_router
 from .auth.auth import Auth
+from .controller.chat_controller import router as chat_router
 app = FastAPI()
 auth = Auth()
 
@@ -35,3 +36,5 @@ async def shutdown_db_client():
 app.include_router(login_router, prefix='/api/v1/login', tags=['login'])
 app.include_router(enterprise_router, prefix='/api/v1/enterprise', tags=['enterprise'], dependencies=[Depends(auth.get_current_user)])
 app.include_router(document_router, prefix='/api/v1/document', tags=['document'], dependencies=[Depends(auth.get_current_user)])
+app.include_router(chat_router, prefix='/api/v1/chat', tags=['chat'], dependencies=[Depends(auth.get_current_user)])
+
