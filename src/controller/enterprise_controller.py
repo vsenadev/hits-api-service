@@ -20,3 +20,11 @@ async def update_enterprise(enterprise: EnterpriseModel, enterprise_id: str = Pa
     - `enterprise`: Corpo da requisição contendo os dados para atualização.
     """
     return await enterprise_service.update_enterprise(enterprise, enterprise_id)
+
+@router.delete("/{enterprise_id}")
+async def delete_enterprise(enterprise_id: str):
+    return await enterprise_service.delete_enterprise(enterprise_id)
+
+@router.get("")
+async def list_enterprises():
+    return await enterprise_service.list_enterprises()

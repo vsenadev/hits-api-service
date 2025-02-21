@@ -42,3 +42,18 @@ class EnterpriseService:
         elif enterprise.name == "":
             return HTTPException(status_code=400, detail='Nome da empresa não pode ser vazio')
 
+    async def delete_enterprise(self, enterprise_id: str):
+        if enterprise_id:
+            await self.repository.delete_enterprise(enterprise_id)
+            return {
+                'detail': 'Empresa excluida com sucesso!',
+                'status_code': 204
+            }
+
+    async def list_enterprises(self):
+        enterprises = await self.repository.list_enterprises()
+
+        for enterprise in enterprises:
+            enterprise['_id'] = str(enterprise['_id'])
+
+        return enterprises

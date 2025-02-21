@@ -1,4 +1,5 @@
 from ..database.db import execute_query
+from bson import ObjectId
 
 
 class EnterpriseRepository():
@@ -13,3 +14,10 @@ class EnterpriseRepository():
 
     async def update_enterprise(self, enterprise_name: str, filter):
         return await execute_query('enterprise', 'update_one', filter, {'$set': {'name': enterprise_name}})
+
+    async def delete_enterprise(self, enterprise_id: str):
+        await execute_query('document', 'delete_many', {'enterprise_id': ObjectId(enterprise_id)})
+        return await execute_query('enterprise', 'delete_one', {'_id': ObjectId(enterprise_id)})
+
+    async def list_enterprises(self):
+        return await execute_query('enterprise', 'find')
